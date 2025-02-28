@@ -1,5 +1,7 @@
 const db = require("../connection");
 const format = require("pg-format");
+const { convertTimestampToDate } = require("./utils")
+
 
 const seed = ({ topicData, userData, articleData, commentData }) => {
   return db
@@ -25,6 +27,8 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       return insertTopicsData(topicData);
     }).then(() => {
       return insertUsersData(userData);
+    }).then(() => {
+      return insertArticlesData(articleData);
     })
 };
 
@@ -86,19 +90,49 @@ function insertTopicsData(data) {
     "INSERT INTO topics (slug, description, img_url) VALUES %L RETURNING *",
     formattedTopicsData
   );
-  return db.query(sqlString)
+  return db.query(sqlString);
 }
 
 function insertUsersData(data) {
   const formattedUsersData = data.map((user) => {
-    return [user.username, user.name, user.avatar_url]
+    return [user.username, user.name, user.avatar_url];
   });
 
   const sqlString = format(
     "INSERT INTO users (username, name, avatar_url) VALUES %L RETURNING *",
     formattedUsersData
   );
-  return db.query(sqlString)
+  return db.query(sqlString);
 }
+
+function insertArticlesData(data) {
+  const formattedArticlesData = data.map((article) => {
+    const convertedObjectWithTimes = convertTimestampToDate(article);
+    return [
+      convertedObjectWithTimes.created_at,
+      convertedObjectWithTimes.title,
+      convertedObjectWithTimes.topic,
+      convertedObjectWithTimes.author,
+      convertedObjectWithTimes.body,
+      convertedObjectWithTimes.article_img_url
+    ];
+  });
+  
+  const sqlString = format(
+    "INSERT INTO articles (created_at, title, topic, author, body, article_img_url) VALUES %L RETURNING *",
+    formattedArticlesData
+  );
+  return db.query(sqlString);
+}
+
+// CREATE TABLE IF NOT EXISTS articles (
+//   article_id SERIAL PRIMARY KEY,
+//   title VARCHAR(255) NOT NULL,
+//   topic VARCHAR(255) REFERENCES topics(slug) ON DELETE CASCADE,
+//   author VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
+//   body TEXT NOT NULL,
+//   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//   votes INT DEFAULT 0,
+//   article_img_url VARCHAR(1000)
 
 module.exports = seed;

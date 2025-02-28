@@ -434,7 +434,7 @@ describe('seed', () => {
         });
       });
     });
-    test('comments data has been inserted correctly', () => {
+    test.only('comments data has been inserted correctly', () => {
       return db.query(`SELECT * FROM comments;`).then(({ rows: comments }) => {
         expect(comments).toHaveLength(18);
         comments.forEach((comment) => {

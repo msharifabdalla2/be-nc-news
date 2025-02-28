@@ -1,6 +1,6 @@
 const db = require("../connection");
 const format = require("pg-format");
-const { convertTimestampToDate } = require("./utils")
+const { convertTimestampToDate, formatCommentsData } = require("./utils")
 
 
 const seed = ({ topicData, userData, articleData, commentData }) => {
@@ -29,6 +29,10 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       return insertUsersData(userData);
     }).then(() => {
       return insertArticlesData(articleData);
+    }).then(({ rows }) => {
+      // rows is article data when destructured
+      // console.log(rows)
+      insertCommentsData(commentData, rows);
     })
 };
 
@@ -125,14 +129,24 @@ function insertArticlesData(data) {
   return db.query(sqlString);
 }
 
-// CREATE TABLE IF NOT EXISTS articles (
-//   article_id SERIAL PRIMARY KEY,
-//   title VARCHAR(255) NOT NULL,
-//   topic VARCHAR(255) REFERENCES topics(slug) ON DELETE CASCADE,
-//   author VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
+function insertCommentsData(commentData, articleData) {
+  const commentsData = formatCommentsData(commentData, articleData)
+  const formattedCommentsData = commentsData.map((comment) => {
+    return Object.values(comment)
+  });
+  // console.log(formattedCommentsData)
+  const sqlString = format(`INSERT INTO comments (created_at, body, votes, author, article_id) VALUES %L RETURNING *`,
+    formattedCommentsData
+  );
+  return db.query(sqlString);
+}
+
+// CREATE TABLE IF NOT EXISTS comments (
+//   comment_id SERIAL PRIMARY KEY,
+//   article_id INT REFERENCES articles(article_id) ON DELETE CASCADE,
 //   body TEXT NOT NULL,
-//   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   votes INT DEFAULT 0,
-//   article_img_url VARCHAR(1000)
+//   author VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE,
+//   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 module.exports = seed;

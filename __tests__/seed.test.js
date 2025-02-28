@@ -6,7 +6,7 @@ beforeAll(() => seed(data));
 afterAll(() => db.end());
 
 describe('seed', () => {
-  describe('topics table', () => {
+  describe.only('topics table', () => {
     test('topics table exists', () => {
       return db
         .query(
@@ -77,7 +77,7 @@ describe('seed', () => {
         });
     });
   });
-  describe('users table', () => {
+  describe.only('users table', () => {
     test('users table exists', () => {
       return db
         .query(
@@ -147,7 +147,7 @@ describe('seed', () => {
     });
   });
 
-  describe('articles table', () => {
+  describe.only('articles table', () => {
     test('articles table exists', () => {
       return db
         .query(
@@ -286,7 +286,7 @@ describe('seed', () => {
     });
   });
 
-  describe('comments table', () => {
+  describe.only('comments table', () => {
     test('comments table exists', () => {
       return db
         .query(
@@ -398,8 +398,8 @@ describe('seed', () => {
     });
   });
 
-  describe('data insertion', () => {
-    test('topics data has been inserted correctly', () => {
+  describe.only('data insertion', () => {
+    test.only('topics data has been inserted correctly', () => {
       return db.query(`SELECT * FROM topics;`).then(({ rows: topics }) => {
         expect(topics).toHaveLength(3);
         topics.forEach((topic) => {
@@ -409,7 +409,7 @@ describe('seed', () => {
         });
       });
     });
-    test('users data has been inserted correctly', () => {
+    test.only('users data has been inserted correctly', () => {
       return db.query(`SELECT * FROM users;`).then(({ rows: users }) => {
         expect(users).toHaveLength(4);
         users.forEach((user) => {

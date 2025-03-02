@@ -124,7 +124,7 @@ function insertArticlesData(data) {
     ];
   });
 
-  console.log(formattedArticlesData);
+  // console.log(formattedArticlesData);
   
   const sqlString = format(
     "INSERT INTO articles (created_at, title, topic, author, body, votes, article_img_url) VALUES %L RETURNING *",

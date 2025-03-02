@@ -112,18 +112,22 @@ function insertUsersData(data) {
 function insertArticlesData(data) {
   const formattedArticlesData = data.map((article) => {
     const convertedObjectWithTimes = convertTimestampToDate(article);
+    // console.log(convertedObjectWithTimes);
     return [
       convertedObjectWithTimes.created_at,
       convertedObjectWithTimes.title,
       convertedObjectWithTimes.topic,
       convertedObjectWithTimes.author,
       convertedObjectWithTimes.body,
+      convertedObjectWithTimes.votes,
       convertedObjectWithTimes.article_img_url
     ];
   });
+
+  console.log(formattedArticlesData);
   
   const sqlString = format(
-    "INSERT INTO articles (created_at, title, topic, author, body, article_img_url) VALUES %L RETURNING *",
+    "INSERT INTO articles (created_at, title, topic, author, body, votes, article_img_url) VALUES %L RETURNING *",
     formattedArticlesData
   );
   return db.query(sqlString);

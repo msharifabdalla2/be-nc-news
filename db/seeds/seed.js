@@ -32,7 +32,7 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
     }).then(({ rows }) => {
       // rows is article data when destructured
       // console.log(rows)
-      insertCommentsData(commentData, rows);
+      return insertCommentsData(commentData, rows);
     })
 };
 

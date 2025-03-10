@@ -1,2 +1,4 @@
 node_modules
 .env.*
+output-dev.txt
+output-test.txt

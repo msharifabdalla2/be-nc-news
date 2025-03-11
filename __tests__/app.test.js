@@ -31,8 +31,9 @@ describe("GET /api/topics", () => {
       .get("/api/topics")
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
+        // console.log(body);
         expect(body.topics).toBeInstanceOf(Array);
+        expect(body.topics.length).toBe(3);
         body.topics.forEach((topic) => {
           expect(typeof topic.slug).toBe("string");
           expect(typeof topic.description).toBe("string");
@@ -91,3 +92,34 @@ describe("GET /api/articles/:article_id", () => {
   });
 });
 
+describe.only("GET /api/articles", () => {
+  test("200: Responds with an array of article objects, each containing the necessary properties", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        expect(body.articles).toBeInstanceOf(Array);
+        body.articles.forEach((article) => {
+          expect(article).toHaveProperty("article_id");
+          expect(article).toHaveProperty("author");
+          expect(article).toHaveProperty("title");
+          expect(article).toHaveProperty("topic");
+          expect(article).toHaveProperty("created_at");
+          expect(article).toHaveProperty("votes");
+          expect(article).toHaveProperty("article_img_url");
+          expect(article).toHaveProperty("comment_count");
+          expect(article.body).toBeUndefined();
+        })
+    })
+  })
+
+  test("404: Responds with 'Not Found' when no articles exist", () => {
+    return request(app)
+      .get("/api/incorrectArticless")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Not Found");
+      });
+  });
+})

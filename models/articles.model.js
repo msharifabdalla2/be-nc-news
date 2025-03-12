@@ -29,5 +29,24 @@ exports.fetchArticles = () => {
         `
     ).then(({ rows }) => {
         return rows;
-    })
+    });
+}
+
+exports.updateArticleVotesById = (article_id, inc_votes) => {
+    return db.query(
+        `UPDATE articles
+        SET votes = votes + $1
+        WHERE article_id = $2
+        RETURNING *;`,
+        [inc_votes, article_id]
+    )
+        .then(({ rows }) => {
+            if (rows.length === 0) {
+                return Promise.reject({
+                    status: 404,
+                    msg: `No article found for article_id: ${article_id}`
+                })
+            }
+            return rows[0];
+        });
 }

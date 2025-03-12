@@ -75,5 +75,27 @@
           "created_at": "2023-04-15T00:00:00Z"
         }
       }
+    },
+    "PATCH /api/articles/:article_id": {
+      "description": "updates the vote count of an article. Accepts an object with an 'inc_votes' property to modify the article's vote count.",
+      "requestBody": {
+        "inc_votes": "integer (e.g., { inc_votes: 1 })"
+      },
+      "responses": {
+        "200": {
+          "description": "Responds with the updated article object",
+          "example": {
+            "article": {
+              "article_id": 1,
+              "title": "Article Title",
+              "author": "author_name",
+              "body": "Article body content",
+              "topic": "Topic",
+              "created_at": "2021-01-01T00:00:00.000Z",
+              "votes": 101
+            }
+          }
+        }
+      }
     }
 }

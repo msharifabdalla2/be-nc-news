@@ -3,7 +3,7 @@ const app = express();
 const endpoints = require("./endpoints.json");
 const { getTopics } = require("../northcoders-news-BE/controllers/topics.controller");
 const { handleCustomError, handlePsqlErrors} = require("./errors.controller/errors.controller");
-const { getArticleById, getAllArticles } = require("./controllers/articles.controller");
+const { getArticleById, getAllArticles, patchArticleVotesById } = require("./controllers/articles.controller");
 const { getArticleCommentsById, postCommentById } = require("./controllers/comments.controller")
 app.use(express.json());
 
@@ -20,7 +20,9 @@ app.get("/api/articles", getAllArticles);
 
 app.get("/api/articles/:article_id/comments", getArticleCommentsById);
 
-app.post(`/api/articles/:article_id/comments`, postCommentById)
+app.post(`/api/articles/:article_id/comments`, postCommentById);
+
+app.patch('/api/articles/:article_id', patchArticleVotesById);
 
 
 app.all("*", (req, res) => {

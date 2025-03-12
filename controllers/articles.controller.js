@@ -1,6 +1,7 @@
 const {
     fetchArticleById,
-    fetchArticles
+    fetchArticles,
+    updateArticleVotesById
 } = require("../models/articles.model");
 
 exports.getArticleById = (req, res, next) => {
@@ -21,4 +22,20 @@ exports.getAllArticles = (req, res, next) => {
         }).catch((err) => {
             next(err);
         });
+}
+
+exports.patchArticleVotesById = (req, res, next) => {
+    const { article_id } = req.params;
+    const { inc_votes } = req.body;
+
+    if (typeof inc_votes !== "number") {
+        return res.status(400).send({msg: "Invalid input, inc_votes must be a number"})
+    }
+
+    updateArticleVotesById(article_id, inc_votes)
+        .then((updatedArticle) => {
+            res.status(202).send({ article: updatedArticle })
+    }).catch((err) => {
+        next(err);
+    });
 }

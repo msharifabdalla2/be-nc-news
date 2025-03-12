@@ -168,3 +168,89 @@ describe("GET /api/articles/:article_id/comments", () => {
       });
   });
 });
+
+describe("POST /api/articles/:article_id/comments", () => {
+  test("201: Responds with the newly posted comment", () => {
+    const newComment = {
+      username: "butter_bridge",
+      body: "This is a test comment."
+    };
+
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(newComment)
+      .expect(201)
+      .then(({ body }) => {
+        expect(body.comment).toHaveProperty("comment_id");
+        expect(body.comment).toHaveProperty("article_id", 1);
+        expect(body.comment).toHaveProperty("author", "butter_bridge");
+        expect(body.comment).toHaveProperty("body", "This is a test comment.");
+        expect(body.comment).toHaveProperty("votes", 0);
+        expect(body.comment).toHaveProperty("created_at");
+      });
+  });
+
+  test("400: Responds with an error when body is missing", () => {
+
+    const invalidComment = {
+      username: "butter_bridge"
+    };
+
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(invalidComment)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Missing required fields");
+      });
+  });
+
+  test("400: Responds with an error when username is missing", () => {
+    const invalidComment = { body: "This is a test comment." };
+
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(invalidComment)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Missing required fields");
+      });
+  });
+
+  test("400: Responds with an error when article_id is invalid", () => {
+    const newComment = { username: "butter_bridge", body: "Test comment" };
+
+    return request(app)
+      .post("/api/articles/not-a-number/comments")
+      .send(newComment)
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid article ID");
+      });
+  });
+
+  test("404: Responds with an error when article_id does not exist", () => {
+    const newComment = { username: "butter_bridge", body: "Test comment" };
+    const article_id = 99999;
+
+    return request(app)
+      .post("/api/articles/99999/comments")
+      .send(newComment)
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe(`No article found for article_id: ${article_id}`);
+      });
+  });
+
+  test("404: Responds with an error when username does not exist", () => {
+    const newComment = { username: "nonexistent_user", body: "Test comment" };
+
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(newComment)
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Username not found");
+      });
+  });
+})

@@ -97,5 +97,19 @@
           }
         }
       }
+    },
+    "DELETE /api/comments/:comment_id": {
+      "description": "deletes a specific comment by its comment_id",
+      "responses": {
+        "204": {
+          "description": "Successfully deletes the comment, no content returned"
+        },
+        "404": {
+          "description": "Comment not found for the valid, given comment_id"
+        },
+        "400": {
+          "description": "Comment not found for the given invalid comment_id in the endpoint"
+        }
+      }
     }
 }

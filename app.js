@@ -4,7 +4,7 @@ const endpoints = require("./endpoints.json");
 const { getTopics } = require("../northcoders-news-BE/controllers/topics.controller");
 const { handleCustomError, handlePsqlErrors} = require("./errors.controller/errors.controller");
 const { getArticleById, getAllArticles, patchArticleVotesById } = require("./controllers/articles.controller");
-const { getArticleCommentsById, postCommentById } = require("./controllers/comments.controller")
+const { getArticleCommentsById, postCommentById, deleteCommentById } = require("./controllers/comments.controller")
 app.use(express.json());
 
 
@@ -23,6 +23,8 @@ app.get("/api/articles/:article_id/comments", getArticleCommentsById);
 app.post(`/api/articles/:article_id/comments`, postCommentById);
 
 app.patch('/api/articles/:article_id', patchArticleVotesById);
+
+app.delete("/api/comments/:comment_id", deleteCommentById);
 
 
 app.all("*", (req, res) => {

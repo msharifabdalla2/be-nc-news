@@ -305,5 +305,4 @@ describe("PATCH /api/articles/:article_id", () => {
         expect(body.msg).toBe(`No article found for article_id: ${article_id}`)
       });
   });
-  
 })

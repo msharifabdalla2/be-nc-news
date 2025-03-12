@@ -76,7 +76,7 @@ describe("GET /api/articles/:article_id", () => {
       .get("/api/articles/notAnId")
       .expect(400)
       .then(({ body }) => {
-        expect(body.msg).toBe("Invalid article ID");
+        expect(body.msg).toBe("Invalid ID");
       })
   })
 
@@ -164,7 +164,7 @@ describe("GET /api/articles/:article_id/comments", () => {
       .get("/api/articles/notanumber/comments")
       .expect(400)
       .then(({ body }) => {
-        expect(body.msg).toBe("Invalid article ID");
+        expect(body.msg).toBe("Invalid ID");
       });
   });
 });
@@ -225,7 +225,7 @@ describe("POST /api/articles/:article_id/comments", () => {
       .send(newComment)
       .expect(400)
       .then(({ body }) => {
-        expect(body.msg).toBe("Invalid article ID");
+        expect(body.msg).toBe("Invalid ID");
       });
   });
 
@@ -289,7 +289,7 @@ describe("PATCH /api/articles/:article_id", () => {
       .send(voteChange)
       .expect(400)
       .then(({ body }) => {
-        expect(body.msg).toBe("Invalid article ID");
+        expect(body.msg).toBe("Invalid ID");
       });
   })
 
@@ -303,6 +303,34 @@ describe("PATCH /api/articles/:article_id", () => {
       .expect(404)
       .then(({ body }) => {
         expect(body.msg).toBe(`No article found for article_id: ${article_id}`)
+      });
+  });
+})
+
+describe("DELETE /api/comments/:comment_id", () => {
+  test("204: Responds with status 204 and no content when comment is deleted", () => {
+    return request(app)
+      .delete("/api/comments/1")
+      .expect(204);
+  });
+
+  test("404: Responds with error message when comment_id is not found", () => {
+    const comment_id = 999;
+
+    return request(app)
+      .delete("/api/comments/999")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe(`No comment found for comment_id: ${comment_id}`)
+      });
+  });
+
+  test("400: Responds with 'Invalid ID' when given an invalid commentId in the endpoint", () => {
+    return request(app)
+      .delete("/api/comments/notAnId")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid ID");
       });
   });
 })

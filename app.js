@@ -4,7 +4,8 @@ const endpoints = require("./endpoints.json");
 const { getTopics } = require("../northcoders-news-BE/controllers/topics.controller");
 const { handleCustomError, handlePsqlErrors} = require("./errors.controller/errors.controller");
 const { getArticleById, getAllArticles } = require("./controllers/articles.controller");
-const { getArticleCommentsById } = require("./controllers/comments.controller")
+const { getArticleCommentsById, postCommentById } = require("./controllers/comments.controller")
+app.use(express.json());
 
 
 app.get("/api", (req, res) => {
@@ -18,6 +19,9 @@ app.get("/api/articles/:article_id", getArticleById);
 app.get("/api/articles", getAllArticles);
 
 app.get("/api/articles/:article_id/comments", getArticleCommentsById);
+
+app.post(`/api/articles/:article_id/comments`, postCommentById)
+
 
 app.all("*", (req, res) => {
     res.status(404).send({ msg: "Not Found" });

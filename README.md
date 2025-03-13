@@ -49,11 +49,11 @@ Run the following command to set up the development and test databases:
 
 ## Running Tests
 
-To verify functionality and error handling, run:
+- To verify functionality and error handling, run:
 
 ```npm test```
 
-For specific test files:
+- For specific test files:
 
 ```npm run test-seed```
 ```npm run app-test```
@@ -62,6 +62,7 @@ For specific test files:
 
 ### 6️⃣ Start the Server
 
+- Run:
 ```npm start```
 
 By default, it will run on port 9090.
@@ -72,7 +73,7 @@ For a full list of available endpoints and their descriptions, visit:
 
 - GET /api
 
-Example: ```View endpoints.json```
+Example: View ```endpoints.json```
 
 ## Tech Stack
 

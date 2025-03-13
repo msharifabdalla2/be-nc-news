@@ -6,7 +6,7 @@ A RESTful API for a news aggregation platform, allowing users to retrieve articl
 
 ## Project Overview
 
-This project is a backend service built with Node.js, Express, and PostgreSQL. It provides endpoints to retrieve, post, update, and delete news-related data such as articles, topics, users, and comments.
+- This project is a backend service built with Node.js, Express, and PostgreSQL. It provides endpoints to retrieve, post, update, and delete news-related data such as articles, topics, users, and comments.
 
 ## Setup Instructions
 
@@ -19,19 +19,19 @@ cd be-nc-news
 
 Ensure you have Node.js v16+ and PostgreSQL v14+ installed, then run:
 
-npm install
+```npm install```
 
 ### 3️⃣ Set Up Environment Variables
 
 ### Create two .env files in the project root:
 
- ✅ .env.development
+ - ✅ .env.development
 
-PGDATABASE=nc_news
+```PGDATABASE=nc_news```
 
-✅ .env.test
+- ✅ .env.test
 
-PGDATABASE=nc_news_test
+```PGDATABASE=nc_news_test```
 
 ✅ Ensure these files are added to .gitignore to prevent exposing credentials.
 
@@ -41,28 +41,28 @@ PGDATABASE=nc_news_test
 
 Run the following command to set up the development and test databases:
 
-npm run setup-dbs
+```npm run setup-dbs```
 
 ### 5️⃣ Seed the Development Database
 
-npm run seed-dev
+```npm run seed-dev```
 
 ## Running Tests
 
 To verify functionality and error handling, run:
 
-npm test
+```npm test```
 
 For specific test files:
 
-npm run test-seed
-npm run app-test
+```npm run test-seed```
+```npm run app-test```
 
-Running the Server Locally
+## Running the Server Locally
 
 ### 6️⃣ Start the Server
 
-npm start
+```npm start```
 
 By default, it will run on port 9090.
 
@@ -70,22 +70,22 @@ By default, it will run on port 9090.
 
 For a full list of available endpoints and their descriptions, visit:
 
-GET /api
+- GET /api
 
 Example:View API Documentation
 
 ## Tech Stack
 
-### Backend: Node.js, Express.js
+- Backend: Node.js, Express.js
 
-### Database: PostgreSQL, node-postgres (pg)
+- Database: PostgreSQL, node-postgres (pg)
 
-### Testing: Jest, Supertest
+- Testing: Jest, Supertest
 
-### Hosting: Supabase (DB), Render (API)
+- Hosting: Supabase (DB), Render (API)
 
 ## Minimum Requirements
 
-Node.js: v16+
+- Node.js: v16+
 
-PostgreSQL: v14+
+- PostgreSQL: v14+

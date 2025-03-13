@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const endpoints = require("./endpoints.json");
-const { getTopics } = require("../northcoders-news-BE/controllers/topics.controller");
+const { getTopics } = require("./controllers/topics.controller");
 const { handleCustomError, handlePsqlErrors} = require("./errors.controller/errors.controller");
 const { getArticleById, getAllArticles, patchArticleVotesById } = require("./controllers/articles.controller");
 const { getArticleCommentsById, postCommentById, deleteCommentById } = require("./controllers/comments.controller")

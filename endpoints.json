@@ -111,5 +111,35 @@
           "description": "Comment not found for the given invalid comment_id in the endpoint"
         }
       }
-    }
+    },
+      "GET /api/articles": {
+        "description": "gets a list of all articles",
+        "queries": {
+          "sort_by": "column name to sort by (defaults to created_at)",
+          "order": "asc or desc (defaults to desc)"
+        },
+        "exampleRequest": "/api/articles?sort_by=votes&order=asc",
+        "exampleResponse": {
+          "articles": [
+            {
+              "article_id": 1,
+              "title": "Seafood substitutions are increasing",
+              "topic": "cooking",
+              "author": "weegembump",
+              "created_at": "2018-05-30T15:59:13.341Z",
+              "votes": 0,
+              "comment_count": 6,
+              "article_img_url": "http://example.com/image.jpg"
+            }
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully returns sorted articles"
+          },
+          "400": {
+            "description": "Invalid sort_by or order query"
+          }
+        }
+      }
 }

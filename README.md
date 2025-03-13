@@ -1,70 +1,91 @@
-# NC News Seeding
+📰 Northcoders News API
 
-NC News - Backend Setup
+A RESTful API for a news aggregation platform, allowing users to retrieve articles, topics, comments, and more.
 
-Project Overview
+🌍 Hosted Version: Northcoders News API
 
-NC News is a RESTful API that serves articles, comments, topics, and user data for a news website. This repository contains the backend setup, including database seeding and environment configuration.
+📖 Project Overview
 
-Setup Instructions
+This project is a backend service built with Node.js, Express, and PostgreSQL. It provides endpoints to retrieve, post, update, and delete news-related data such as articles, topics, users, and comments.
 
-1. Create Environment Variables
+🛠️ Setup Instructions
 
-This project requires two .env files to connect to the PostgreSQL databases:
+1️⃣ Clone the Repository
 
-.env.development
+git clone https://github.com/msharifabdalla2/be-nc-news.git
+cd be-nc-news
 
-PGDATABASE=nc_news
+2️⃣ Install Dependencies
 
-.env.test
-
-PGDATABASE=nc_news_test
-
-Note: Ensure that PostgreSQL is installed and running on your machine before proceeding.
-
-2. Install Dependencies
-
-Run the following command to install all required dependencies:
+Ensure you have Node.js v16+ and PostgreSQL v14+ installed, then run:
 
 npm install
 
-3. Set Up the Databases
+3️⃣ Set Up Environment Variables
 
-Run the following script to create the development and test databases:
+Create two .env files in the project root:
+
+✅ .env.development
+
+PGDATABASE=nc_news
+
+✅ .env.test
+
+PGDATABASE=nc_news_test
+
+✅ Ensure these files are added to .gitignore to prevent exposing credentials.
+
+📊 Database Setup & Seeding
+
+4️⃣ Create the Databases
+
+Run the following command to set up the development and test databases:
 
 npm run setup-dbs
 
-This will execute the SQL file located at db/setup-dbs.sql to create the necessary databases.
+5️⃣ Seed the Development Database
 
-4. Seed the Databases
+npm run seed-dev
 
-To populate the development database with sample data, run:
+✅ Running Tests
 
-npm run seed
-
-To verify that the seed function is working correctly, run the seed test:
-
-npm run test-seed
-
-5. Running the Tests
-
-To ensure that everything is working as expected, run the full test suite:
+To verify functionality and error handling, run:
 
 npm test
 
-Notes
+For specific test files:
 
-The .env files are ignored by Git, so make sure to create them manually before running any database-related commands.
+npm run test-seed
+npm run app-test
 
-If any database-related test fails, ensure that the correct .env file is set up and PostgreSQL is running.
+🚀 Running the Server Locally
 
-Data Index File Fix
+6️⃣ Start the Server
 
-Ensure that your db/data/index.js file properly exports the correct data:
+npm start
 
-const articleData = require("./articles.js");
-const commentData = require("./comments.js");
-const topicData = require("./topics.js");
-const userData = require("./users.js");
+By default, it will run on port 9090.
 
-module.exports = { articleData, commentData, topicData, userData };
+🛠️ API Endpoints
+
+For a full list of available endpoints and their descriptions, visit:
+
+GET /api
+
+Example:View API Documentation
+
+📌 Tech Stack
+
+Backend: Node.js, Express.js
+
+Database: PostgreSQL, node-postgres (pg)
+
+Testing: Jest, Supertest
+
+Hosting: Supabase (DB), Render (API)
+
+📋 Minimum Requirements
+
+Node.js: v16+
+
+PostgreSQL: v14+

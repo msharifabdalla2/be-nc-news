@@ -116,7 +116,8 @@
         "description": "gets a list of all articles",
         "queries": {
           "sort_by": "column name to sort by (defaults to created_at)",
-          "order": "asc or desc (defaults to desc)"
+          "order": "asc or desc (defaults to desc)",
+          "topic": "filters articles by topic"
         },
         "exampleRequest": "/api/articles?sort_by=votes&order=asc",
         "exampleResponse": {
@@ -139,6 +140,9 @@
           },
           "400": {
             "description": "Invalid sort_by or order query"
+          },
+          "404": {
+            "description": "Topic not found"
           }
         }
       }

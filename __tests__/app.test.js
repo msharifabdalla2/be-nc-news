@@ -424,3 +424,29 @@ describe("GET /api/articles (sorting queries)", () => {
       });
   });
 });
+
+describe("GET /api/articles (topic query)", () => {
+  test("200: Responds with articles filtered by topic", () => {
+    return request(app)
+      .get("/api/articles?topic=cats")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.articles).toBeInstanceOf(Array);
+        expect(body.articles.length).toBe(1);
+        body.articles.forEach((article) => {
+          expect(article).toHaveProperty("topic", "cats");
+        });
+      });
+  });
+
+  test("404: Responds with an error if topic does not exist", () => {
+    const topic = "invalidTopic";
+
+    return request(app)
+      .get("/api/articles?topic=invalidTopic")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe(`No topic found for topic: ${topic}`);
+      });
+  });
+});

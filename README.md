@@ -6,24 +6,24 @@ A RESTful API for a news aggregation platform, allowing users to retrieve articl
 
 ## Project Overview
 
-- This project is a backend service built with Node.js, Express, and PostgreSQL. It provides endpoints to retrieve, post, update, and delete news-related data such as articles, topics, users, and comments.
+This project is a backend service built with Node.js, Express, and PostgreSQL. It provides endpoints to retrieve, post, update, and delete news-related data such as articles, topics, users, and comments.
 
 ## Setup Instructions
 
 ### 1️⃣ Clone the Repository
 
-git clone https://github.com/msharifabdalla2/be-nc-news.git
+- git clone https://github.com/msharifabdalla2/be-nc-news.git
 cd be-nc-news
 
 ### 2️⃣ Install Dependencies
 
-Ensure you have Node.js v16+ and PostgreSQL v14+ installed, then run:
+- Ensure you have Node.js v16+ and PostgreSQL v14+ installed, then run:
 
 ```npm install```
 
 ### 3️⃣ Set Up Environment Variables
 
-### Create two .env files in the project root:
+#### Create two .env files in the project root:
 
  - ✅ .env.development
 
@@ -72,17 +72,17 @@ For a full list of available endpoints and their descriptions, visit:
 
 - GET /api
 
-Example:View API Documentation
+Example: ```View endpoints.json```
 
 ## Tech Stack
 
-- Backend: Node.js, Express.js
+- **Backend**: Node.js, Express.js
 
-- Database: PostgreSQL, node-postgres (pg)
+- **Database**: PostgreSQL, node-postgres (pg)
 
-- Testing: Jest, Supertest
+- **Testing**: Jest, Supertest
 
-- Hosting: Supabase (DB), Render (API)
+- **Hosting**: Supabase (DB), Render (API)
 
 ## Minimum Requirements
 

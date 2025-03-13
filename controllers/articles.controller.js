@@ -1,6 +1,7 @@
+const { sort } = require("../db/data/test-data/articles");
 const {
     fetchArticleById,
-    fetchArticles,
+    fetchAllArticles,
     updateArticleVotesById
 } = require("../models/articles.model");
 
@@ -16,7 +17,9 @@ exports.getArticleById = (req, res, next) => {
 }
 
 exports.getAllArticles = (req, res, next) => {
-    fetchArticles()
+    const { sort_by, order } = req.query;
+
+    fetchAllArticles(sort_by, order)
         .then((articles) => {
             res.status(200).send({ articles });
         }).catch((err) => {

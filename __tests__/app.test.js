@@ -67,8 +67,9 @@ describe("GET /api/articles/:article_id", () => {
           votes: 100,
           article_img_url:
             "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
-        })
-      })
+          comment_count: "11",
+        });
+      });
   })
 
   test("Status: 400, Responds with an error message when given an id with an invalid data type", () => {
@@ -451,7 +452,7 @@ describe("GET /api/articles (topic query)", () => {
   });
 });
 
-describe.only("GET /api/articles/:article_id (comment_count)", () => {
+describe("GET /api/articles/:article_id (comment_count)", () => {
   test("200: Responds with an article object including comment_count", () => {
     return request(app)
       .get("/api/articles/1")

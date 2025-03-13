@@ -62,8 +62,8 @@ Run the following command to set up the development and test databases:
 
 ### 6️⃣ Start the Server
 
-- Run:
-```npm start```
+Run:
+- ```npm start```
 
 By default, it will run on port 9090.
 

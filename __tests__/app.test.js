@@ -415,6 +415,7 @@ describe("GET /api/articles (sorting queries)", () => {
         expect(body.msg).toBe("Invalid order query");
       });
   });
+
   test("400: Responds with error when given an invalid order and sort_by value", () => {
     return request(app)
       .get("/api/articles?sort_by=wrong_column&order=wrong_order")
@@ -439,6 +440,15 @@ describe("GET /api/articles (topic query)", () => {
       });
   });
 
+  test("200: Responds with an empty array if topic exists but has no articles", () => {
+    return request(app)
+      .get("/api/articles?topic=paper")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.articles).toEqual([]);
+      });
+  });
+
   test("404: Responds with an error if topic does not exist", () => {
     const topic = "invalidTopic";
 
@@ -446,7 +456,7 @@ describe("GET /api/articles (topic query)", () => {
       .get("/api/articles?topic=invalidTopic")
       .expect(404)
       .then(({ body }) => {
-        expect(body.msg).toBe(`No topic found for topic: ${topic}`);
+        expect(body.msg).toBe(`No article found for topic: ${topic}`);
       });
   });
 });

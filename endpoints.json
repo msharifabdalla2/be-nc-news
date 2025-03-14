@@ -26,21 +26,34 @@
       ]
     }
   },
-  "GET /api/articles/:article_id": {
-    "description": "fetches an article by its ID",
-    "exampleResponse": {
-      "article": {
-        "author": "weegembump",
-        "title": "Seafood substitutions are increasing",
-        "article_id": 1,
-        "body": "Text from the article..",
-        "topic": "cooking",
-        "created_at": "2018-05-30T15:59:13.341Z",
-        "votes": 0,
-        "article_img_url": "http://example.com/image.jpg"
+    "GET /api/articles/:article_id": {
+      "description": "gets a single article by its article_id, including the comment count",
+      "exampleRequest": "/api/articles/1",
+      "exampleResponse": {
+        "article": {
+          "article_id": 1,
+          "title": "Why JavaScript is awesome",
+          "author": "tech_guru",
+          "topic": "coding",
+          "created_at": "2021-01-01T00:00:00.000Z",
+          "votes": 42,
+          "comment_count": 5,
+          "article_img_url": "http://example.com/image.jpg",
+          "body": "This is the article content..."
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successfully returns an article with comment count"
+        },
+        "404": {
+          "description": "Article not found"
+        },
+        "400": {
+          "description": "Invalid article_id format"
+        }
       }
-    }
-  },
+    },
   "GET /api/articles": {
     "description": "Fetches all articles, sorted by date in descending order. Each article includes the total number of comments but does not include the body field.",
     "queries": [],

@@ -67,8 +67,9 @@ describe("GET /api/articles/:article_id", () => {
           votes: 100,
           article_img_url:
             "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
-        })
-      })
+          comment_count: "11",
+        });
+      });
   })
 
   test("Status: 400, Responds with an error message when given an id with an invalid data type", () => {
@@ -457,6 +458,49 @@ describe("GET /api/articles (topic query)", () => {
       .expect(404)
       .then(({ body }) => {
         expect(body.msg).toBe(`No article found for topic: ${topic}`);
+      });
+  });
+});
+
+describe("GET /api/articles/:article_id (comment_count)", () => {
+  test("200: Responds with an article object including comment_count", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.article).toEqual(
+          expect.objectContaining({
+            article_id: 1,
+            title: expect.any(String),
+            topic: expect.any(String),
+            author: expect.any(String),
+            body: expect.any(String),
+            created_at: expect.any(String),
+            votes: expect.any(Number),
+            article_img_url: expect.any(String),
+            comment_count: expect.any(String)
+          })
+        );
+      });
+  });
+
+  test("404: Responds with an error when given a non-existent article_id", () => {
+    const article_id = 9999;
+
+    return request(app)
+      .get("/api/articles/9999")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe(`No article found for article_id: ${article_id}`);
+      });
+  });
+
+  test("400: Responds with an error when given an invalid article_id", () => {
+    return request(app)
+      .get("/api/articles/notAnId")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid ID");
       });
   });
 });

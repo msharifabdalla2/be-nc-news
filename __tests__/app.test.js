@@ -460,3 +460,40 @@ describe("GET /api/articles (topic query)", () => {
       });
   });
 });
+
+describe("GET /api/users/:username", () => {
+  test("200: Responds with a user object based on their username", () => {
+    return request(app)
+      .get("/api/users/butter_bridge")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.user).toEqual(
+          expect.objectContaining({
+            username: "butter_bridge",
+            name: "jonny",
+            avatar_url:
+              "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg",
+          })
+        );
+      });
+  });
+
+  test("404: Responds with an error if username does not exist", () => {
+    const username = "nonexistent_user"
+    return request(app)
+      .get("/api/users/nonexistent_user")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe(`No user found with username: ${username}`);
+      });
+  });
+  
+  test("400: Responds with an error if username is invalid format", () => {
+    return request(app)
+      .get("/api/users/12345")
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Invalid username format");
+      });
+  });
+})

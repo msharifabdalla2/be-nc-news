@@ -6,9 +6,13 @@ const { handleCustomError, handlePsqlErrors} = require("./errors.controller/erro
 // const { getArticleById, getAllArticles, patchArticleVotesById } = require("./controllers/articles.controller");
 // const { getArticleCommentsById, postCommentById, deleteCommentById } = require("./controllers/comments.controller")
 // const { getAllUsers } = require("./controllers/users.controller")
+const cors = require('cors');
+
+app.use(cors());
 
 const apiRouter = require("./Routes/api-router");
 app.use(express.json());
+
 
 // app.get("/api", (req, res) => {
     //     res.status(200).send(endpoints);
